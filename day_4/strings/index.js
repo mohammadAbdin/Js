@@ -118,6 +118,9 @@ for (let i = 0; i < wordsArray.length; i++) {
 }
 console.log(URLFriendlyArray);
 
+const string = "rani and me";
+string.split(" ").join("-");
+console.log(string);
 // 7-
 
 const trimDetails =
