@@ -1,25 +1,27 @@
+const destinations = [
+  { name: "Paris", status: "Visited", budget: 1500 },
+  { name: "London", status: "Upcoming", budget: 1800 },
+  { name: "Tokyo", status: "Wishlist", budget: 2000 },
+  { name: "Sydney", status: "Visited", budget: 1600 },
+  { name: "New York", status: "Upcoming", budget: 1700 },
+];
 // 1-
 
-const destination = { name: "Paris", budget: 2000 };
 const getDestinationName = (destination) => destination.name;
 
+console.log(getDestinationName(destinations[0]));
 // 2-
-let status = "Visited";
 
-const getTravelStatus = (status) =>
+const getTravelStatus = (status) => {
   status === "Visited"
     ? "You have visited this place"
     : status === "Upcoming"
     ? "You are planning to visit this place"
     : "This place is in your wishlist";
+};
+console.log(getTravelStatus(destinations[2].status));
 
 // 3-
-
-const destinations = [
-  { name: "Paris", budget: 2000 },
-  { name: "Tokyo", budget: 3000 },
-  { name: "New York", budget: 2500 },
-];
 
 const getTotalBudget = (destinations) => {
   let totalBudget = 0;
