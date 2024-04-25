@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Treasure Hunt Game</title>
+    <style>
+      #grid {
+        display: grid;
+        grid-template-columns: repeat(10, 30px);
+        gap: 2px;
+      }
+
+      .cell {
+        width: 30px;
+        height: 30px;
+        background-color: rgb(240, 240, 240);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgb(221, 221, 221);
+      }
+
+      .player {
+        background-color: blue;
+      }
+
+      .treasure {
+        background-color: rgb(255, 215, 0);
+      }
+
+      .trap {
+        background-color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="grid"></div>
+    <p>Score: <span id="score">0</span></p>
+    <p>Moves Left: <span id="moves">20</span></p>
+    <button onclick="movePlayer('up')">Up</button>
+    <button onclick="movePlayer('down')">Down</button>
+    <button onclick="movePlayer('left')">Left</button>
+    <button onclick="movePlayer('right')">Right</button>
+    <script src="Treasure Hunt.js"></script>
+  </body>
+</html>
