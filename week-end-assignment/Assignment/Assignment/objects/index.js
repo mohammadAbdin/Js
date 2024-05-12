@@ -968,11 +968,82 @@ const CarPurchaseManager = {
   // @param {string} carId - The ID of the car
   // @param {string} customerId - The ID of the customer
   // @return {boolean} - true if the car was sold successfully, false otherwise
-  sellCar(carId, customerId) {},
+  sellCar(carId, customerId) {
+    let i = 0;
+    // console.log("+++++++++++++++++");
+    let theCar;
+    let custCash;
+    agencies.forEach((agency, agency_index) => {
+      agency.cars.forEach((agency_car, car_index) => {
+        agency_car.models.forEach((agency_car_models, index) => {
+          if (carId == agency_car_models.carNumber) {
+            // console.log("founded");
+            customers.forEach((customer) => {
+              if (customer.id == customerId) {
+                if (customer.cash >= 1.17 * agency_car_models.price) {
+                  customer.cash =
+                    customer.cash - 1.17 * agency_car_models.price; // take money from customer
+
+                  this.taxesAuthority.totalTaxesPaid +=
+                    0.17 * agency_car_models.price; // add the tax to the taxes obj
+                  this.taxesAuthority.numberOfTransactions += 1;
+                  this.taxesAuthority.sumOfAllTransactions +=
+                    1.17 * agency_car_models.price;
+
+                  agency_car_models.ownerId = customer.id; // change the owner of the car to the customer
+                  theCar = agency_car_models;
+                  //   console.log(theCar);
+
+                  agency.cash += agency_car_models.price; // adding the money to the agency
+                  agency_car.models.splice(index, 1); // remove the car from the agency
+                  customer.cars.push(theCar); // put the car in the cars of the client
+
+                  i = 1; // change the value of checking if the selling process is successfull
+                } else {
+                  console.log("The customer does not have enough money");
+                }
+              }
+            });
+          }
+          //   else if (
+          //     i == 0 &&
+          //     agency_index == agencies.length &&
+          //     car_index == agency.cars.length &&
+          //     agency_car.models.length == index
+          //   ) {
+          //     i = 3;
+          //   }
+          else {
+            // console.log(agency_index == agencies.length - 1);
+            if (
+              i == 0 &&
+              agency_index == agencies.length - 1 &&
+              car_index == agency.cars.length - 1 &&
+              agency_car.models.length - 1 == index
+            ) {
+              console.log("The vehicle does not exist at the agency");
+            }
+          }
+        });
+      });
+    });
+    if (i == 1) return true;
+    else return false;
+  },
 
   // Calculate and return the total revenue of the entire market.
   // @return {number} - The total revenue of the market
-  getTotalMarketRevenue() {},
+  getTotalMarketRevenue() {
+    let totalRevenue = 0;
+    agencies.map((agency) => {
+      agency.cars.forEach((agency_car) => {
+        agency_car.models.forEach((agency_car_models, index) => {
+          totalRevenue += agency_car_models.price;
+        });
+      });
+    });
+    return totalRevenue;
+  },
 };
 
 // Test CarAgencyManager
@@ -1081,13 +1152,13 @@ console.log(CarManager.getCheapestCar()); // Should return the cheapest car
 // // Test CarPurchaseManager
 
 // // Test sellCar
-// console.log("Testing sellCar...");
-// console.log(CarPurchaseManager.sellCar("AZJZ4", "BGzHhjnE8")); // Should return true if car with ID 'AZJZ4' is sold to customer with ID 'BGzHhjnE8'
-// console.log(CarPurchaseManager.sellCar("InvalidCarId", "BGzHhjnE8")); // Should return false
+console.log("Testing sellCar...");
+console.log(CarPurchaseManager.sellCar("ueZUp", "BGzHhjnE8")); // Should return true if car with ID 'AZJZ4' is sold to customer with ID 'BGzHhjnE8'
+console.log(CarPurchaseManager.sellCar("InvalidCarId", "BGzHhjnE8")); // Should return false
 
 // // Test getTotalMarketRevenue
-// console.log('Testing getTotalMarketRevenue...');
-// console.log(CarPurchaseManager.getTotalMarketRevenue()); // Should return the total market revenue
+console.log("Testing getTotalMarketRevenue...");
+console.log(CarPurchaseManager.getTotalMarketRevenue()); // Should return the total market revenue
 
 // // Test Tax Authority Updates
 // console.log('Testing Tax Authority Updates...');
