@@ -1,0 +1,32 @@
+const users = [
+  {
+    id: 167464,
+    firstName: "Jimmy",
+    lastName: "Arnold",
+  },
+  {
+    id: 578447,
+    firstName: "Martha",
+    lastName: "Goldman",
+  },
+  {
+    id: 864578,
+    firstName: "Tim",
+    lastName: "Burton",
+  },
+];
+document.addEventListener("DOMContentLoaded", function () {
+  const parentElement = document.querySelector(".container");
+  const olEl = document.createElement("ol");
+  olEl.style.listStyleType = "none";
+
+  users.forEach((user) => {
+    const liEl = document.createElement("li");
+
+    liEl.setAttribute("data-id", user.id);
+    liEl.textContent = user.firstName + " " + user.lastName;
+    olEl.append(liEl);
+  });
+  console.log(olEl.children);
+  parentElement.append(olEl);
+});
