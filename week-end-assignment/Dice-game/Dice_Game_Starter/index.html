@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/style/style.css" />
+    <title>Dice game</title>
+  </head>
+  <body>
+    <div class="background">
+      <div class="one first"></div>
+      <div class="first_player" id="first_player">
+        <div>
+          <p>PLAYER 1</p>
+          <p class="score" id="score1">0</p>
+        </div>
+        <div id="result1">
+          <p id="You_win">You win!</p>
+          <p id="Passed_the_target_score">Passed the target score</p>
+        </div>
+        <div class="current">
+          <p>CURRENT</p>
+          <p id="current1">0</p>
+        </div>
+      </div>
+      <div class="second_player" id="second_player">
+        <div>
+          <p>PLAYER 2</p>
+          <p class="score" id="score2">0</p>
+        </div>
+        <div id="result2">
+          <p id="You_win">You win!</p>
+          <p id="Passed_the_target_score">Passed the target score</p>
+        </div>
+        <div class="current">
+          <p>CURRENT</p>
+          <p id="current2">0</p>
+        </div>
+      </div>
+      <div class="one"></div>
+    </div>
+
+    <div id="control">
+      <button id="NEW GAME">NEW GAME</button>
+      <img src="" id="img1" alt="" />
+      <img src="" id="img2" alt="" />
+      <button id="ROLL DICE">ROLL DICE</button>
+      <button id="HOLD">HOLD</button>
+    </div>
+    <div class="container">
+      <div id="start_menu">
+        <div class="instructures">
+          <h2>Game instructures</h2>
+          <ul>
+            <il class="circle"
+              >in your turn -roll the dice(at least once) and accumulate the
+              result in "current".
+            </il>
+            <br />
+            <il class="circle"
+              >You can roll again or click "Hold" to save the points from
+              "Current" and end the turn.</il
+            >
+            <br />
+            <il class="circle"
+              >Note: if you get 6-6 - you will lose all the points from
+              "current" and the turn will go to your oppenent.</il
+            >
+            <br />
+            <il class="circle"
+              >if you managed to reach exactly the target score -you win if you
+              passed it you loose.</il
+            >
+          </ul>
+        </div>
+        <h2>Please select the target</h2>
+        <input type="number" id="target" placeholder="Target..." />
+        <button id="START">START GAME</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
