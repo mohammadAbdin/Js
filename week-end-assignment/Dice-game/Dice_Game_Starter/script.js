@@ -15,6 +15,9 @@ const img2 = document.getElementById("img2");
 const rollDice = document.getElementById("ROLL DICE");
 const result1 = document.getElementById("result1");
 const result2 = document.getElementById("result2");
+const newGameMenu = document.getElementById("newGame");
+const newGame = document.getElementById("NEW GAME");
+const START_newgame = document.getElementById("START_newgame");
 
 let sum = 0;
 let turn = 1;
@@ -22,7 +25,31 @@ let turn = 1;
 const palying_screen = () => {
   target = parseInt(target.value);
   console.log(target);
+  img1.setAttribute("src", `assets/images/dice-1.png`);
+  img2.setAttribute("src", `assets/images/dice-1.png`);
 
+  newGame.addEventListener("click", function () {
+    control.style.display = "none";
+    second_player_div.forEach((div) => {
+      div.style.display = "none";
+    });
+    first_player_div.forEach((div) => {
+      div.style.display = "none";
+    });
+    newGameMenu.style.display = "flex";
+    START_newgame.addEventListener("click", function () {
+      target = document.getElementById("new_target");
+      newGameMenu.style.display = "none";
+      control.style.display = "flex";
+      second_player_div.forEach((div) => {
+        div.style.display = "block";
+      });
+      first_player_div.forEach((div) => {
+        div.style.display = "block";
+      });
+      palying_screen();
+    });
+  });
   rollDice.addEventListener("click", function () {
     let dice1 = Math.floor(Math.random() * 6) + 1;
     let dice2 = Math.floor(Math.random() * 6) + 1;
@@ -30,6 +57,10 @@ const palying_screen = () => {
     img2.setAttribute("src", `assets/images/dice-${dice2}.png`);
 
     sum += dice1 + dice2;
+    if (dice1 + dice2 == 12) {
+      sum = 0;
+      turn = 2;
+    }
 
     if (turn === 1) {
       current1.innerHTML = sum;

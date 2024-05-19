@@ -7,6 +7,19 @@
     <title>Dice game</title>
   </head>
   <body>
+    <div id="newGame">
+      <p>Please select a target score</p>
+      <div>
+        <input
+          class="target"
+          type="number"
+          id="new_target"
+          placeholder="Target..."
+        />
+        <button class="START" id="START_newgame">START GAME</button>
+      </div>
+    </div>
+
     <div class="background">
       <div class="one first"></div>
       <div class="first_player" id="first_player">
@@ -74,10 +87,16 @@
           </ul>
         </div>
         <h2>Please select the target</h2>
-        <input type="number" id="target" placeholder="Target..." />
-        <button id="START">START GAME</button>
+        <input
+          class="target"
+          type="number"
+          id="target"
+          placeholder="Target..."
+        />
+        <button class="START" id="START">START GAME</button>
       </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
