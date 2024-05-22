@@ -9,6 +9,7 @@ const postsPromise = fetch(postsURL).then((response) => response.json());
 Promise.all([usersPromise, postsPromise])
   .then(([users, posts]) => {
     console.log(users);
+
     console.log(posts);
     users.map((user) => {
       const userDiv = document.createElement("div");
