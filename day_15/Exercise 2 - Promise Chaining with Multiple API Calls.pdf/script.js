@@ -1,11 +1,12 @@
 const URL = "https://jsonplaceholder.typicode.com/";
 const usersDiv = document.getElementById("users");
-console.log("hi");
 async function fetchUsers(endpoint) {
   try {
     const response = await fetch(`${URL}${endpoint}`)
       .then((response) => {
+        console.log("k");
         if (!response.ok) {
+          console.log("lo");
           throw new Error("Network response was not ok " + response.statusText);
         }
         return response.json();
@@ -15,7 +16,8 @@ async function fetchUsers(endpoint) {
       });
     return response;
   } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
+    console.log("hi");
+    error.textContent = `An error occurred: ${error.message}. Please try again later. `;
   }
 }
 const displayUsers = (users) => {
