@@ -20,16 +20,18 @@ const getHttpOptions = () => ({
 });
 const API_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
 
-async function getImage(imgPath) {
-  imgPath = `https://image.tmdb.org/t/p/original/${imgPath}`;
-  return await fetch(imgPath)
-    .then((response) => {
-      return response.json();
-    })
-    .then((img) => {
-      return img;
-    });
-}
+// async function getImage(imgPath) {
+//   imgPath = `https://image.tmdb.org/t/p/original/${imgPath}?api_key=${apiKey}`;
+//   return await fetch(imgPath, getHttpOptions())
+//     .then((response) => {
+//       console.log(response.url);
+//       return response.json();
+//     })
+//     .then((img) => {
+//       return img;
+//     });
+// }
+const getImage = (imgPath) => `https://image.tmdb.org/t/p/original/${imgPath}`;
 
 async function fetchMovies() {
   const response = await fetch(
@@ -37,24 +39,27 @@ async function fetchMovies() {
     getHttpOptions()
   );
   if (!response.ok) {
+    throw new Error("failed");
   }
   const result = await response.json();
-  await result.results.map((element) => {
-    async function fetchImage(path) {
-      await getImage(path);
-    }
-    element.picture = fetchImage(element.poster_path);
-    console.log(element.picture);
+  let element = result.results;
+  console.log(element.length);
+  for (let i = 0; i < element.length; i++) {
+    console.log(i);
+
+    element[i].picture = getImage(element[i].backdrop_path);
+    element[i].picture = await fetch(element[i].picture, getHttpOptions());
+    element[i].picture = element[i].picture.url;
+    console.log(element[i].picture);
     const movie1 = new Movie(
-      element.title,
-      element.release_date,
-      element.picture,
-      element.vote_average
+      element[i].title,
+      element[i].release_date,
+      element[i].picture,
+      element[i].vote_average
     );
-    // console.log(movie1.picture);
 
     createMovieCard(movie1);
-  });
+  }
   updateItemCount();
   return result;
 }
@@ -75,7 +80,7 @@ function createMovieCard(movie) {
   <a href="#">
   <img class="poster-img" src="./images/tabler-icon-plus.svg">
   </a>
-  <img class="poster" src="picture">////-----------
+  <img class="poster" src="${movie.picture}">
   <div class="flex-container movie-info">
     <a href="#" class="title normal-link">${movie.title}</a>
     <p class="release-date"><strong>Release Date:</strong> ${movie.releaseDate}</p>
